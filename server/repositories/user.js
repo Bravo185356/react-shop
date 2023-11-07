@@ -1,7 +1,7 @@
 const db = require("../database");
 
-async function findUser(login, password) {
-  const user = await db.any(`SELECT id, name, email FROM users WHERE name = $1 AND password = $2`, [login, password]);
+async function findUser(login) {
+  const user = await db.any(`SELECT * FROM users WHERE name = $1`, [login]);
   return user[0];
 }
 
