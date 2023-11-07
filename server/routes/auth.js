@@ -1,10 +1,8 @@
 const express = require("express");
 const router = express.Router();
-const { loginByForm, autoLogin } = require('../controllers/auth')
+const { loginByForm, autoLogin, registration } = require('../controllers/auth')
 
-router.post("/registration", (req, res) => {
-  res.send("Регистрация");
-});
+router.post("/registration", registration);
 
 router.post("/login", autoLogin);
 

@@ -1,4 +1,4 @@
-const { findUser } = require("../repositories/user");
+const { findUser, createNewUser } = require("../repositories/user");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 
@@ -25,4 +25,17 @@ async function autoLogin(req, res) {
     res.json({ error: "Токен устарел" });
   }
 }
-module.exports = { loginByForm, autoLogin };
+
+async function registration(req, res) {
+  const { login, password, email } = req.body;
+  const isUserExisting = await findUser(login);
+  if (isUserExisting) {
+    res.json({ error: "Такой пользователь уже существует" });
+  } else {
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
+    createNewUser(login, hashedPassword, email);
+    res.json({ msg: "Пользователь успешно зарегистрирован" });
+  }
+}
+module.exports = { loginByForm, autoLogin, registration };
