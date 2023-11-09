@@ -4,6 +4,7 @@ const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const cors = require("cors");
 const authRouter = require("./routes/auth");
+const productRouter = require('./routes/products')
 require("dotenv").config();
 
 const PORT = process.env.PORT;
@@ -18,6 +19,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use('/api/auth', authRouter);
+app.use('/api/', productRouter);
 
 app.listen(PORT, () => {
   console.log(`App listening on port ${PORT}`);
