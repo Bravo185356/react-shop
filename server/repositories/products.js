@@ -1,8 +1,12 @@
-const db = require('../database')
+const db = require("../database");
 
 async function getProductList() {
-  const productList = db.any('SELECT * FROM products')
-  return productList
+  const productList = await db.any("SELECT * FROM products");
+  return productList;
 }
 
-module.exports = { getProductList }
+async function getProduct(id) {
+  const product = await db.any("SELECT * FROM products WHERE id = $1", [id]);
+  return product[0];
+}
+module.exports = { getProductList, getProduct };
