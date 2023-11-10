@@ -1,8 +1,9 @@
 const express = require("express");
 const router = express.Router();
-const { loginByForm, autoLogin, registration } = require('../controllers/auth')
+const { loginByForm, autoLogin, registration } = require("../controllers/auth");
+const { registrationValidation } = require("../middleware/authValidation");
 
-router.post("/registration", registration);
+router.post("/registration", registrationValidation(), registration);
 
 router.post("/login", autoLogin);
 

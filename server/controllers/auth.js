@@ -1,6 +1,7 @@
 const { findUser, createNewUser } = require("../repositories/user");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
+const { validationResult } = require("express-validator");
 
 async function loginByForm(req, res) {
   const { login, password } = req.body;
@@ -28,6 +29,14 @@ async function autoLogin(req, res) {
 
 async function registration(req, res) {
   const { login, password, email } = req.body;
+  const errors = validationResult(req);
+  const formatedErrors = errors.formatWith((error) => {
+    return { error: error.msg, field: error.path };
+  });
+  if (errors) {
+    res.json(formatedErrors.mapped());
+    return;
+  }
   const isUserExisting = await findUser(login);
   if (isUserExisting) {
     res.json({ error: "Такой пользователь уже существует" });
