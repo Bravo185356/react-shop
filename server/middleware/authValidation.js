@@ -13,4 +13,11 @@ function registrationValidation() {
   ];
 }
 
-module.exports = { registrationValidation };
+function loginValidation() {
+  return [
+    body('login').trim().notEmpty().withMessage('Заполните поле'),
+    body('password').trim().notEmpty().withMessage('Заполните поле')
+  ]
+}
+
+module.exports = { registrationValidation, loginValidation };

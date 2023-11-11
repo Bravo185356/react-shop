@@ -2,9 +2,15 @@ const { findUser, createNewUser } = require("../repositories/user");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const { validationResult } = require("express-validator");
+const formatValidationErrors = require("../helpers/formatValidationErrors");
 
 async function loginByForm(req, res) {
   const { login, password } = req.body;
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    const formatedErrors = formatValidationErrors(errors);
+    return res.json(formatedErrors);
+  }
   const user = await findUser(login);
   if (!user) {
     return res.json({ error: "Пользователя не существует" });
@@ -33,12 +39,9 @@ async function autoLogin(req, res) {
 async function registration(req, res) {
   const { login, password, email } = req.body;
   const errors = validationResult(req);
-  const formatedErrors = errors.formatWith((error) => {
-    return { error: error.msg, field: error.path };
-  });
-  if (errors) {
-    res.json(formatedErrors.mapped());
-    return;
+  if (!errors.isEmpty()) {
+    const formatedErrors = formatValidationErrors(errors);
+    return res.json(formatedErrors);
   }
   const isUserExisting = await findUser(login);
   if (isUserExisting) {
