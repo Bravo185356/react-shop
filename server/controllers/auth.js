@@ -6,6 +6,9 @@ const { validationResult } = require("express-validator");
 async function loginByForm(req, res) {
   const { login, password } = req.body;
   const user = await findUser(login);
+  if (!user) {
+    return res.json({ error: "Пользователя не существует" });
+  }
   const isPasswordValid = await bcrypt.compare(password, user.password);
   if (isPasswordValid) {
     const token = jwt.sign({ login, password }, "secret", { expiresIn: "24h" });
