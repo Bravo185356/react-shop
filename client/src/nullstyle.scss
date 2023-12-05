@@ -4,8 +4,10 @@
     box-sizing: border-box;
 }
 
-[class*="-container"] {
+[class*="Container"] {
     max-width: 1600px;
+    margin: 0px auto;
+    padding: 0px 10px;
 }
 
 input:focus {

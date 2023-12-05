@@ -1,0 +1,77 @@
+.mainBlock {
+    margin-top: 105px;
+}
+
+.mainContainer {
+    display: grid;
+    grid-template: minmax(0, 1fr) minmax(77px, auto) / repeat(2, minmax(0, 1fr));
+    gap: 38px;
+}
+
+.slider {
+    grid-row-start: 1;
+    grid-row-end: 3;
+}
+
+.prevButton,
+.nextButton {
+    position: absolute;
+    top: 50%;
+    z-index: 100;
+    width: 10%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    img {
+        width: 100%;
+        height: 100%;
+    }
+}
+
+.prevButton {
+    left: 20px;
+}
+
+.nextButton {
+    right: 20px;
+}
+
+.popularCategories {
+    display: grid;
+    align-content: start;
+    grid-template: repeat(2, minmax(0, 1fr)) / repeat(2, minmax(0, 1fr));
+    gap: 26px;
+}
+
+.popularCategoryItem img {
+    width: 100%;
+    height: 100%;
+}
+
+.socials {
+    display: flex;
+    align-items: center;
+    column-gap: 37px;
+    row-gap: 10px;
+    background-color: #EBEBEB;
+    padding: 10px 21px;
+    flex-wrap: wrap;
+
+    .socialsItem {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        color: black;
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 900px) {
+    .mainContainer {
+        grid-template: repeat(3, minmax(0, auto)) minmax(77px, auto) / minmax(0, 1600px);
+    }
+}
+@media (max-width: 550px) {
+    .socialsItem {
+        flex: 0 0 40%;
+    }
+}
