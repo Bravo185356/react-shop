@@ -4,12 +4,6 @@
     box-sizing: border-box;
 }
 
-[class*="Container"] {
-    max-width: 1600px;
-    margin: 0px auto;
-    padding: 0px 10px;
-}
-
 input:focus {
     outline: 0;
 }
@@ -17,4 +11,8 @@ input:focus {
 a {
     color: white;
     text-decoration: none;
+}
+
+ul {
+    list-style: none;
 }

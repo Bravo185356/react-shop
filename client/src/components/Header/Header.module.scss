@@ -17,25 +17,35 @@
 
 .headerRow1 .headerContainer {
     min-height: 60px;
+    column-gap: 150px;
 }
 
 .headerRow2 .headerContainer {
     width: 100%;
+    display: grid;
+    column-gap: 35px;
+    grid-template-columns: minmax(100px, 18%) 1fr repeat(3, auto);
 }
 
 .menu {
+    flex: 1 1 auto;
+}
+
+.menuList {
     display: flex;
-    list-style: none;
+    justify-content: center;
     gap: 10px;
 }
 
 .language {
     display: flex;
+    align-items: center;
     gap: 10px;
 }
 
 .call {
     display: flex;
+    align-items: center;
     gap: 16px;
 
     .phoneNote {
@@ -46,25 +56,29 @@
 .catalogButton {
     display: flex;
     align-items: center;
-    justify-content: center;
     gap: 20px;
     border: 0;
-    width: 200px;
+    width: 100%;
     height: 46px;
     background-color: #3F46D6;
     border-radius: 8px;
     font-size: 20px;
     color: white;
+    padding: 0px 10px;
     cursor: pointer;
 
     img {
         color: white;
     }
+
+    .buttonName {
+        flex: 1 1 auto;
+    }
 }
 
 .inputWrapper {
     display: flex;
-    width: 617px;
+    align-items: center;
     border-radius: 8px;
     border: 1px solid #000;
     padding: 0px 8px;
@@ -95,5 +109,142 @@
 
     * {
         cursor: pointer;
+    }
+}
+
+.burgerButtonWrap {
+    position: relative;
+    width: 30px;
+    height: 20px;
+    align-items: center;
+    display: none;
+}
+
+.burgerButton {
+    width: 100%;
+    height: 2px;
+    background-color: white;
+
+    &::after,
+    &::before {
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 2px;
+        left: 0;
+        background-color: white;
+    }
+
+    &::after {
+        bottom: 0;
+    }
+
+    &::before {
+        top: 0;
+    }
+}
+
+.closeMenuButton {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    font-size: 20px;
+    display: none;
+}
+
+.burgerMenuBackground {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #2D2D2D;
+    opacity: 0.2;
+    z-index: 109;
+}
+
+.colorVariant {
+    display: flex;
+    border: 1px solid #46C6EF;
+    border-radius: 5px;
+}
+
+.themeButton {
+    display: flex;
+    align-items: center;
+    background-color: white;
+    border: 0;
+    height: 100%;
+    padding: 3px 5px;
+
+    img>#svgClass {
+        fill: red;
+        stroke: black;
+    }
+}
+
+.whiteArrow path {
+    stroke: white;
+}
+
+@media (max-width: 1000px) {
+    .callInfo {
+        display: none;
+    }
+}
+
+@media (max-width: 760px) {
+    .headerRow2 .headerContainer {
+        column-gap: 15px;
+        grid-template-columns: minmax(100px, 200px) 1fr repeat(2, auto);
+        row-gap: 10px;
+        padding-top: 25px;
+    }
+
+    .call {
+        justify-content: end;
+    }
+
+    .headerControls {
+        gap: 15px;
+    }
+
+    .inputWrapper {
+        grid-column-start: 1;
+        grid-column-end: 5;
+        grid-row-start: 2;
+        grid-row-end: 3;
+    }
+}
+
+@media (max-width: 650px) {
+    .menu {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        transition: right 0.3s ease;
+        width: 50%;
+        height: 100%;
+        background-color: white;
+        color: black;
+        z-index: 110;
+        flex-direction: column;
+        padding: 10px;
+        box-shadow: 0px 0px 5px black;
+
+        &.menuActive {
+            right: 0;
+        }
+
+        &.menuActive+.menuBackground,
+        .closeMenuButton,
+        .menuList {
+            display: block;
+        }
+    }
+
+    .burgerButtonWrap {
+        display: flex;
     }
 }
